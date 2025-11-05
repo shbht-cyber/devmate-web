@@ -75,14 +75,16 @@ const ProfileInformation = ({ form, setForm }) => {
           <h3 className="text-xl font-semibold mb-2">Gender</h3>
           <select
             name="gender"
-            className="select select-bordered"
+            className="select select-bordered w-full"
             value={form.gender}
             onChange={handleChange}
           >
-            <option disabled>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
+            <option value="" disabled>
+              Select Gender
+            </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
@@ -91,7 +93,7 @@ const ProfileInformation = ({ form, setForm }) => {
           <textarea
             name="about"
             placeholder="About yourself"
-            className="textarea textarea-bordered col-span-2"
+            className="textarea textarea-bordered col-span-4"
             value={form.about}
             onChange={handleChange}
           />
