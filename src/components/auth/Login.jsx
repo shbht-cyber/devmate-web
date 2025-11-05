@@ -9,6 +9,7 @@ import { API_BASE_URL } from "../../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("sr@gmail.com");
   const [password, setPassword] = useState("Test@123");
+  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,10 +26,11 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.user));
       return navigate("/");
     } catch (err) {
-      console.log("Error: ", err.message);
+      setError(err?.response?.data?.error || "Something went wrong");
+      console.error("Error: ", err.message);
     }
   };
 
@@ -61,6 +63,7 @@ const Login = () => {
               />
             </fieldset>
           </div>
+          {error && <p className="text-red-500">{error}</p>}
           <div className="card-actions justify-center">
             <button onClick={handleLogin} className="btn btn-primary btn-md">
               Login
