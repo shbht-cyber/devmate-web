@@ -2,19 +2,21 @@ import axios from "axios";
 import { API_BASE_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../utils/userSlice";
+import SkillsSection from "./SkillsSection";
+import { useState } from "react";
+import Toaster from "../common/Toaster";
 
 const ProfileInformation = ({ form, setForm }) => {
   const dispatch = useDispatch();
 
+  const [toast, setToast] = useState({
+    show: false,
+    type: "",
+    title: "",
+  });
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const addSkill = () => {
-    const skill = prompt("Enter skill:");
-    if (skill.trim() !== "") {
-      setForm({ ...form, skills: [...form.skills, skill] });
-    }
   };
 
   const handleUpdateDetails = async () => {
@@ -32,88 +34,82 @@ const ProfileInformation = ({ form, setForm }) => {
       if (data.data) {
         dispatch(addUser(data?.data));
       }
-
-      //TODO: add success toast here
+      setToast({
+        show: true,
+        type: "success",
+        title: "Profile updated successfully!",
+      });
     } catch (err) {
-      //TODO: add error toast here
       console.log(err);
+      setToast({ show: true, type: "error", title: err.response.data.error });
     }
   };
 
+  const renderInput = (type, name, placeholder) => {
+    return (
+      <div>
+        <h3 className="text-xl font-semibold mb-2">{placeholder}</h3>
+        <input
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          className="input input-bordered w-full"
+          value={form[name]}
+          onChange={handleChange}
+        />
+      </div>
+    );
+  };
+
   return (
-    <div className="card bg-base-100 shadow-xl p-6">
-      <h3 className="text-lg font-semibold mb-4">Personal Information</h3>
+    <div className="card bg-base-300 shadow-xl p-6">
+      <h3 className="text-2xl font-semibold mb-4">Personal Information</h3>
 
       <div className="grid grid-cols-2 gap-4">
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          className="input input-bordered w-full"
-          value={form.firstName}
-          onChange={handleChange}
-        />
+        {renderInput("text", "firstName", "First Name")}
+        {renderInput("text", "lastName", "Last Name")}
+        {renderInput("number", "age", "Age")}
+        {renderInput("text", "photoUrl", "Photo Url")}
 
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          className="input input-bordered w-full"
-          value={form.lastName}
-          onChange={handleChange}
-        />
+        <div>
+          <h3 className="text-xl font-semibold mb-2">Gender</h3>
+          <select
+            name="gender"
+            className="select select-bordered"
+            value={form.gender}
+            onChange={handleChange}
+          >
+            <option disabled>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
 
-        <input
-          type="number"
-          name="age"
-          placeholder="Age"
-          className="input input-bordered"
-          value={form.age}
-          onChange={handleChange}
-        />
-
-        <select
-          name="gender"
-          className="select select-bordered"
-          value={form.gender}
-          onChange={handleChange}
-        >
-          <option disabled>Select Gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
-
-        <textarea
-          name="about"
-          placeholder="About yourself"
-          className="textarea textarea-bordered col-span-2"
-          value={form.about}
-          onChange={handleChange}
-        ></textarea>
+        <div>
+          <h3 className="text-xl font-semibold mb-2">About</h3>
+          <textarea
+            name="about"
+            placeholder="About yourself"
+            className="textarea textarea-bordered col-span-2"
+            value={form.about}
+            onChange={handleChange}
+          />
+        </div>
       </div>
 
-      {/* --- SKILLS SECTION --- */}
-      <h3 className="text-lg font-semibold mt-6">Skills</h3>
+      <SkillsSection form={form} setForm={setForm} />
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        {form.skills.map((skill, index) => (
-          <div key={index} className="badge badge-primary p-3 text-white">
-            {skill}
-          </div>
-        ))}
-
-        <button className="btn btn-outline btn-sm" onClick={addSkill}>
-          + Add
-        </button>
-      </div>
-
-      {/* --- BUTTONS FOR APIS --- */}
       <div className="flex gap-4 mt-6">
-        <button className="btn btn-primary w-1/2" onClick={handleUpdateDetails}>
+        <button
+          className="btn btn-primary w-full"
+          onClick={handleUpdateDetails}
+        >
           Save Details
         </button>
       </div>
+
+      {toast.show && <Toaster toast={toast} setToast={setToast} />}
     </div>
   );
 };
