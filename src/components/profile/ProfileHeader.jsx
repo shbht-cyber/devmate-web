@@ -1,5 +1,5 @@
-const ProfileHeader = ({ user }) => {
-  const { firstName, lastName, emailId, age, gender, photoUrl, about } = user;
+const ProfileHeader = ({ form }) => {
+  const { firstName, lastName, emailId, age, gender, photoUrl, about } = form;
 
   return (
     <div className="card bg-base-300 shadow-xl p-6 flex items-center gap-6">
