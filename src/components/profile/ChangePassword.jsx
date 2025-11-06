@@ -52,7 +52,7 @@ const ChangePassword = () => {
           type="password"
           placeholder={label}
           name={name}
-          className="input input-bordered"
+          className="input input-bordered w-full mb-3"
           onChange={handlePasswordChange}
         />
       </div>
@@ -62,16 +62,11 @@ const ChangePassword = () => {
     <div className="card bg-base-100 shadow-xl p-6">
       <h3 className="text-2xl font-semibold mb-4">Change Password</h3>
 
-      <div className="grid grid-cols-4 gap-4">
-        {renderPasswordInput("currentPassword", "Current Password")}
-        {renderPasswordInput("newPassword", "New Password")}
-        {renderPasswordInput("confirmPassword", "Confirm Password")}
-      </div>
+      {renderPasswordInput("currentPassword", "Current Password")}
+      {renderPasswordInput("newPassword", "New Password")}
+      {renderPasswordInput("confirmPassword", "Confirm Password")}
 
-      <button
-        className="btn btn-primary mt-6 w-full"
-        onClick={handleUpdatePassword}
-      >
+      <button className="btn btn-primary w-full" onClick={handleUpdatePassword}>
         Update Password
       </button>
 

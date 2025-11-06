@@ -62,7 +62,7 @@ const ProfileInformation = ({ form, setForm }) => {
   };
 
   return (
-    <div className="card bg-base-300 shadow-xl p-6">
+    <div className="card bg-base-100 shadow-xl p-6">
       <h3 className="text-2xl font-semibold mb-4">Personal Information</h3>
 
       <div className="grid grid-cols-2 gap-4">
