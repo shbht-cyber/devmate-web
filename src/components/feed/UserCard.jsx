@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, isPreview }) => {
   const { firstName, lastName, age, gender, about, photoUrl } = user;
   const defaultMaleUserIcon =
     "https://thumbs.dreamstime.com/b/vector-user-icon-7337510.jpg";
@@ -24,8 +24,12 @@ const UserCard = ({ user }) => {
         {age && <p>{age}</p>}
         {about && <p>{about}</p>}
         <div className="card-actions justify-center my-4">
-          <button className="btn btn-primary">Ignore</button>
-          <button className="btn btn-secondary">Interested</button>
+          <button disabled={isPreview} className="btn btn-primary">
+            Ignore
+          </button>
+          <button disabled={isPreview} className="btn btn-secondary">
+            Interested
+          </button>
         </div>
       </div>
     </div>

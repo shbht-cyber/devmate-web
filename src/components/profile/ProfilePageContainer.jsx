@@ -17,7 +17,7 @@ const ProfilePageContainer = ({ profileData }) => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto p-8 space-y-6">
+    <div className="max-w-4xl mx-auto p-5 pb-20">
       <ProfileHeader form={form} />
 
       <ProfileInformation form={form} setForm={setForm} />

@@ -69,7 +69,7 @@ const ChangePassword = () => {
       </div>
 
       <button
-        className="btn btn-secondary mt-6 w-full"
+        className="btn btn-primary mt-6 w-full"
         onClick={handleUpdatePassword}
       >
         Update Password
