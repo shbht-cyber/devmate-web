@@ -30,7 +30,7 @@ const Connections = () => {
   if (connections?.length === 0) return <h1>No connections found</h1>;
 
   return (
-    <div className="flex flex-col justify-center items-center p-5 gap-5">
+    <div className="flex flex-col justify-center items-center p-5 gap-5 mb-20">
       <h1 className="text-xl font-bold">Connections</h1>
       <ul className="list w-[70%] ">
         {connections.map((item, index) => {
