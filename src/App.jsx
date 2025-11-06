@@ -6,6 +6,7 @@ import Feed from "./components/feed/Feed";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import appStore from "./utils/appStore";
 import Connections from "./components/connections/Connections";
+import Requests from "./components/connections/Requests";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/connections" element={<Connections />} />
+              <Route path="/requests" element={<Requests />} />
             </Route>
           </Routes>
         </BrowserRouter>
