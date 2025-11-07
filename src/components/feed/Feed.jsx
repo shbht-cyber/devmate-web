@@ -33,7 +33,7 @@ const Feed = () => {
     return (
       <div className="text-center my-10">
         <h2 className="text-2xl font-bold ">
-          No Users found, please login after sometime!
+          No Users found, please try after sometime!
         </h2>
       </div>
     );
