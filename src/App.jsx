@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import appStore from "./utils/appStore";
 import Connections from "./components/connections/Connections";
 import Requests from "./components/connections/Requests";
+import Signup from "./components/auth/SIgnup";
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
       <Provider store={appStore}>
         <BrowserRouter basename="/">
           <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Body />}>
               <Route path="/" element={<Feed />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />

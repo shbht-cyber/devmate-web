@@ -35,39 +35,57 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center my-[20%]">
-      <div className="card bg-base-300 w-96 shadow-sm">
-        <div className="card-body">
-          <h2 className="card-title">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-base-300">
+      <div className="w-[90%] max-w-5xl min-h-[90vh] bg-white rounded-3xl shadow-xl p-4">
+        <div className="flex flex-col md:flex-row h-full rounded-2xl overflow-hidden">
+          {/* Input form */}
+          <div className="w-full md:w-1/2 bg-gray-100 p-8 flex items-center justify-center">
+            <form
+              className="w-full max-w-sm space-y-5"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleLogin();
+              }}
+            >
+              <h2 className="text-xl font-bold text-center">Login</h2>
 
-          <div>
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Email Id</legend>
-              <input
-                value={emailId}
-                onChange={(e) => setEmailId(e.target.value)}
-                type="text"
-                className="input"
-                placeholder="Type here"
-              />
-            </fieldset>
+              <div>
+                <label className="label">Email</label>
+                <input
+                  type="email"
+                  value={emailId}
+                  placeholder="Enter your email id"
+                  className="input input-bordered"
+                  onChange={(e) => setEmailId(e.target.value)}
+                />
+              </div>
 
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Password</legend>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="text"
-                className="input"
-                placeholder="Type here"
-              />
-            </fieldset>
+              <div>
+                <label className="label">Password</label>
+                <input
+                  type="password"
+                  value={password}
+                  placeholder="Enter password"
+                  className="input input-bordered"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              {error && <p className="text-red-500">{error}</p>}
+
+              <button type="submit" className="btn btn-primary w-full">
+                Login
+              </button>
+            </form>
           </div>
-          {error && <p className="text-red-500">{error}</p>}
-          <div className="card-actions justify-center">
-            <button onClick={handleLogin} className="btn btn-primary btn-md">
-              Login
-            </button>
+
+          {/* helper section */}
+          <div className="w-full flex items-center justify-center">
+            <img
+              src="/auth-helper-image.png"
+              className="w-full h-full object-cover"
+              alt="auth-helper-image"
+            />
           </div>
         </div>
       </div>
