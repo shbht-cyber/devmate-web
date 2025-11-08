@@ -7,7 +7,7 @@ const SignupForm = ({ form, setForm, handleSignup, error }) => {
 
   const renderInput = (label, type, name, placeholder) => {
     return (
-      <div className="space-y-1">
+      <div className="">
         <label className="label">{label}</label>
 
         <input
@@ -40,7 +40,7 @@ const SignupForm = ({ form, setForm, handleSignup, error }) => {
 
         {renderInput("Password", "password", "password", "Enter password")}
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 justify-center items-center">
           <div className="w-1/2">
             {renderInput("Age", "number", "age", "Enter age")}
           </div>
