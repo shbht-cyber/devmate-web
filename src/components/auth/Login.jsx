@@ -1,14 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
-
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 import { addUser } from "../../utils/userSlice";
-import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../utils/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("sr@gmail.com");
-  const [password, setPassword] = useState("Test@123");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post(
+      const { data } = await axios.post(
         `${API_BASE_URL}/login`,
         {
           emailId,
@@ -26,7 +26,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      dispatch(addUser(res.data.user));
+      dispatch(addUser(data.data));
       return navigate("/");
     } catch (err) {
       setError(err?.response?.data?.error || "Something went wrong");
@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-300">
-      <div className="w-[90%] max-w-5xl min-h-[90vh] bg-white rounded-3xl shadow-xl p-4">
+      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-xl p-4">
         <div className="flex flex-col md:flex-row h-full rounded-2xl overflow-hidden">
           {/* Input form */}
           <div className="w-full md:w-1/2 bg-gray-100 p-8 flex items-center justify-center">
@@ -76,6 +76,12 @@ const Login = () => {
               <button type="submit" className="btn btn-primary w-full">
                 Login
               </button>
+
+              <div className="text-center">
+                <Link to={"/signup"} className="link link-info">
+                  New user? Register here
+                </Link>
+              </div>
             </form>
           </div>
 

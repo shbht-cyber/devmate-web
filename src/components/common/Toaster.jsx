@@ -3,8 +3,6 @@ import { useEffect } from "react";
 const Toaster = ({ toast, setToast }) => {
   const { show, title, type } = toast;
 
-  console.log("type", type);
-
   useEffect(() => {
     if (!show) return;
 
