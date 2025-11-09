@@ -23,7 +23,11 @@ const UserCard = ({ user, isPreview }) => {
   return (
     <div className="card w-[400px] bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-2xl overflow-hidden">
       {/* Image Section */}
-      <figure className="h-[300px] w-full overflow-hidden bg-gray-200">
+      <figure
+        className={`h-[300px] w-full overflow-hidden bg-${
+          gender === "female" ? "pink" : "blue"
+        }-200`}
+      >
         <img
           src={photoUrl}
           alt="user-photo"
