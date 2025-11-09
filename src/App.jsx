@@ -1,33 +1,78 @@
 import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Body from "./components/Body";
 import Login from "./components/auth/Login";
+import Signup from "./components/auth/SIgnup";
 import ProfilePage from "./components/profile/ProfilePage";
 import Feed from "./components/feed/Feed";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import appStore from "./utils/appStore";
 import Connections from "./components/connections/Connections";
 import Requests from "./components/connections/Requests";
-import Signup from "./components/auth/SIgnup";
+import appStore from "./utils/appStore";
+import AuthProvider from "./AuthProvider";
+import { PublicRoute, PrivateRoute } from "./routes/Routes";
 
-function App() {
+export default function App() {
   return (
     <>
       <Provider store={appStore}>
         <BrowserRouter basename="/">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/" element={<Body />}>
-              <Route path="/" element={<Feed />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/connections" element={<Connections />} />
-              <Route path="/requests" element={<Requests />} />
-            </Route>
-          </Routes>
+          <AuthProvider>
+            <Routes>
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <Login />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <PublicRoute>
+                    <Signup />
+                  </PublicRoute>
+                }
+              />
+              <Route path="/" element={<Body />}>
+                <Route
+                  path="/"
+                  element={
+                    <PrivateRoute>
+                      <Feed />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <ProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/connections"
+                  element={
+                    <PrivateRoute>
+                      <Connections />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/requests"
+                  element={
+                    <PrivateRoute>
+                      <Requests />
+                    </PrivateRoute>
+                  }
+                />
+              </Route>
+            </Routes>
+          </AuthProvider>
         </BrowserRouter>
       </Provider>
     </>
   );
 }
-
-export default App;
