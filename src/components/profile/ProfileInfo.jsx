@@ -6,7 +6,7 @@ import SkillsSection from "./SkillsSection";
 import { useState } from "react";
 import Toaster from "../common/Toaster";
 
-const ProfileInformation = ({ form, setForm }) => {
+const ProfileInfo = ({ form, setForm }) => {
   const dispatch = useDispatch();
 
   const [toast, setToast] = useState({
@@ -62,7 +62,7 @@ const ProfileInformation = ({ form, setForm }) => {
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl p-6">
+    <div className="card bg-base-100 shadow-xl p-6 h-full">
       <h3 className="text-2xl font-semibold mb-4">Personal Information</h3>
 
       <div className="grid grid-cols-2 gap-4">
@@ -116,4 +116,4 @@ const ProfileInformation = ({ form, setForm }) => {
   );
 };
 
-export default ProfileInformation;
+export default ProfileInfo;

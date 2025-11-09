@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import ProfileHeader from "./ProfileHeader";
-import ProfileInformation from "./ProfileINformation";
+import ProfileInfo from "./ProfileInfo";
 import ChangePassword from "./ChangePassword";
 
 const ProfilePageContainer = ({ profileData }) => {
@@ -17,20 +17,18 @@ const ProfilePageContainer = ({ profileData }) => {
   });
 
   return (
-    <div className="min-h-screen bg-base-300 p-6 pb-20">
-      <div className="grid grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-base-200 p-6 pb-20">
+      <div className="max-w-6xl mx-auto gap-6 flex flex-col lg:grid lg:grid-cols-3">
         {/* LEFT SECTION */}
-        <div className="col-span-1 flex flex-col gap-6">
-          {/* Profile Header */}
+        <div className="flex flex-col gap-6 h-full lg:col-span-1">
           <ProfileHeader form={form} />
 
-          {/* Change Password */}
           <ChangePassword />
         </div>
 
         {/* RIGHT SECTION */}
-        <div className="col-span-2">
-          <ProfileInformation form={form} setForm={setForm} />
+        <div className="lg:col-span-2 h-full">
+          <ProfileInfo form={form} setForm={setForm} />
         </div>
       </div>
     </div>

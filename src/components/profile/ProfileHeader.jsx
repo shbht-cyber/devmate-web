@@ -10,33 +10,33 @@ const ProfileHeader = ({ form }) => {
         className="w-28 h-28 rounded-full object-cover border"
         alt="user-image"
       />
+
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-2xl font-bold">
           {firstName} {lastName}
         </h2>
         <p className="text-gray-600">{emailId}</p>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm uppercase">
           {age} • {gender}
         </p>
-        <p className="text-gray-500 text-sm">{about}</p>
+        <p className="text-gray-500 text-sm mt-2">{about}</p>
       </div>
 
       <button
         className="btn btn-primary"
-        // onClick={handleUpdateDetails}
-        onClick={() => document.getElementById("my_modal_3").showModal()}
+        onClick={() => document.getElementById("dialog").showModal()}
       >
-        View your profile card
+        Preview your profile card
       </button>
 
-      <dialog id="my_modal_3" className="modal">
-        <div className="modal-box flex justify-center">
+      <dialog id="dialog" className="modal">
+        <div className="modal-box flex justify-center p-10">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-lg btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
           </form>
+
           <UserCard user={form} isPreview={true} />
         </div>
       </dialog>
