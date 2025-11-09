@@ -48,7 +48,7 @@ const ProfileInfo = ({ form, setForm }) => {
   const renderInput = (type, name, placeholder) => {
     return (
       <div>
-        <h3 className="text-xl font-semibold mb-2">{placeholder}</h3>
+        <h3 className="text-md font-semibold mb-2">{placeholder}</h3>
         <input
           type={type}
           name={name}
@@ -63,7 +63,7 @@ const ProfileInfo = ({ form, setForm }) => {
 
   return (
     <div className="card bg-base-100 shadow-xl p-6 h-full">
-      <h3 className="text-2xl font-semibold mb-4">Personal Information</h3>
+      <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
 
       <div className="grid grid-cols-2 gap-4">
         {renderInput("text", "firstName", "First Name")}
@@ -93,7 +93,7 @@ const ProfileInfo = ({ form, setForm }) => {
           <textarea
             name="about"
             placeholder="About yourself"
-            className="textarea textarea-bordered col-span-4"
+            className="textarea textarea-bordered col-span-4 w-full"
             value={form.about}
             onChange={handleChange}
           />

@@ -5,14 +5,18 @@ const ProfileHeader = ({ form }) => {
 
   return (
     <div className="card bg-base-100 shadow-xl p-6 flex items-center gap-6">
-      <img
-        src={photoUrl}
-        className="w-28 h-28 rounded-full object-cover border"
-        alt="user-image"
-      />
+      <div className="avatar">
+        <div
+          className={`w-28 rounded-full ring-offset-2 ring-3 ring-offset-base-100 ${
+            gender === "female" ? "ring-pink-500" : "ring-blue-500"
+          }`}
+        >
+          <img src={photoUrl} alt="user-image" />
+        </div>
+      </div>
 
       <div className="flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-xl font-bold">
           {firstName} {lastName}
         </h2>
         <p className="text-gray-600">{emailId}</p>

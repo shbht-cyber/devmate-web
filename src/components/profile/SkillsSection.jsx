@@ -16,7 +16,7 @@ const SkillsSection = ({ form, setForm }) => {
         {form.skills.map((skill, index) => (
           <div
             key={index}
-            className="relative badge badge-primary py-3 px-4 text-white flex items-center h-10"
+            className="relative badge badge-info py-3 px-4 text-white flex items-center h-10"
           >
             {skill}
 

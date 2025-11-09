@@ -17,17 +17,14 @@ const ProfilePageContainer = ({ profileData }) => {
   });
 
   return (
-    <div className="min-h-screen bg-base-200 p-6 pb-20">
-      <div className="max-w-6xl mx-auto gap-6 flex flex-col lg:grid lg:grid-cols-3">
-        {/* LEFT SECTION */}
-        <div className="flex flex-col gap-6 h-full lg:col-span-1">
+    <div className="min-h-screen bg-base-300 p-6 pb-5">
+      <div className="max-w-6xl mx-auto flex flex-col gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
           <ProfileHeader form={form} />
-
           <ChangePassword />
         </div>
 
-        {/* RIGHT SECTION */}
-        <div className="lg:col-span-2 h-full">
+        <div>
           <ProfileInfo form={form} setForm={setForm} />
         </div>
       </div>

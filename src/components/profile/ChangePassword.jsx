@@ -47,7 +47,7 @@ const ChangePassword = () => {
   const renderPasswordInput = (name, label) => {
     return (
       <div>
-        <h3 className="text-xl font-semibold mb-2">{label}</h3>
+        <h3 className="text-md font-semibold mb-2">{label}</h3>
         <input
           type="password"
           placeholder={label}
@@ -60,7 +60,7 @@ const ChangePassword = () => {
   };
   return (
     <div className="card bg-base-100 shadow-xl p-6">
-      <h3 className="text-2xl font-semibold mb-4">Change Password</h3>
+      <h3 className="text-xl font-semibold mb-4">Change Password</h3>
 
       {renderPasswordInput("currentPassword", "Current Password")}
       {renderPasswordInput("newPassword", "New Password")}
