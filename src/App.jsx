@@ -8,6 +8,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import Feed from "./components/feed/Feed";
 import Connections from "./components/connections/Connections";
 import Requests from "./components/connections/Requests";
+import Home from "./components/home/home";
 import appStore from "./utils/appStore";
 import AuthProvider from "./AuthProvider";
 import { PublicRoute, PrivateRoute } from "./routes/Routes";
@@ -19,6 +20,14 @@ export default function App() {
         <BrowserRouter basename="/">
           <AuthProvider>
             <Routes>
+              <Route
+                path="/"
+                element={
+                  <PublicRoute>
+                    <Home />
+                  </PublicRoute>
+                }
+              />
               <Route
                 path="/login"
                 element={
@@ -35,9 +44,9 @@ export default function App() {
                   </PublicRoute>
                 }
               />
-              <Route path="/" element={<Body />}>
+              <Route element={<Body />}>
                 <Route
-                  path="/"
+                  path="/user/feed"
                   element={
                     <PrivateRoute>
                       <Feed />
@@ -45,7 +54,7 @@ export default function App() {
                   }
                 />
                 <Route
-                  path="/profile"
+                  path="/user/profile"
                   element={
                     <PrivateRoute>
                       <ProfilePage />
@@ -53,7 +62,7 @@ export default function App() {
                   }
                 />
                 <Route
-                  path="/connections"
+                  path="/user/connections"
                   element={
                     <PrivateRoute>
                       <Connections />
@@ -61,7 +70,7 @@ export default function App() {
                   }
                 />
                 <Route
-                  path="/requests"
+                  path="/user/requests"
                   element={
                     <PrivateRoute>
                       <Requests />

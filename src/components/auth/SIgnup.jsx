@@ -33,7 +33,7 @@ const Signup = () => {
       );
 
       dispatch(addUser(data.data));
-      return navigate("/profile");
+      return navigate("/user/profile");
     } catch (err) {
       setError(err?.response?.data?.error || "Something went wrong");
       console.error("Error: ", err.message);

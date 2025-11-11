@@ -17,7 +17,7 @@ export const PrivateRoute = ({ children }) => {
   }
 
   if (!user) {
-    return navigate("/login");
+    return navigate("/");
   }
 
   return children;
@@ -39,7 +39,7 @@ export const PublicRoute = ({ children }) => {
   }
 
   if (user) {
-    return navigate("/");
+    return navigate("/user/feed");
   }
 
   return children;

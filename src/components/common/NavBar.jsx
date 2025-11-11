@@ -16,7 +16,7 @@ const NavBar = () => {
 
       dispatch(removeUser());
       dispatch(setLoading(false));
-      return navigate("/login");
+      return navigate("/");
     } catch (err) {
       console.error("Error: " + err.message);
     }
@@ -49,19 +49,19 @@ const NavBar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to="/user/feed">Home</Link>
                 </li>
 
                 <li>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/user/profile">Profile</Link>
                 </li>
 
                 <li>
-                  <Link to="/connections">Connections</Link>
+                  <Link to="/user/connections">Connections</Link>
                 </li>
 
                 <li>
-                  <Link to="/requests">Requests</Link>
+                  <Link to="/user/requests">Requests</Link>
                 </li>
                 <li>
                   <a onClick={handleLogout}>Logout</a>
