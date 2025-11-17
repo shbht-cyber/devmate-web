@@ -1,5 +1,15 @@
+import { Link } from "react-router-dom";
+
 const Card = ({ user, status, _id, handleAction }) => {
-  const { firstName, lastName, gender, age, about, photoUrl } = user;
+  const {
+    firstName,
+    lastName,
+    gender,
+    age,
+    about,
+    photoUrl,
+    _id: userId,
+  } = user;
 
   const ringColor =
     gender === "female"
@@ -37,9 +47,17 @@ const Card = ({ user, status, _id, handleAction }) => {
 
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
           {status === "connected" ? (
-            <button className="btn btn-success btn-sm w-full sm:w-auto">
-              Connected
-            </button>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <button className="btn btn-success btn-sm flex-1 sm:flex-none min-w-24">
+                Connected
+              </button>
+
+              <Link to={"/user/chat/" + userId}>
+                <button className="btn btn-info btn-sm flex-1 sm:flex-none min-w-24">
+                  Chat
+                </button>
+              </Link>
+            </div>
           ) : (
             <>
               <button

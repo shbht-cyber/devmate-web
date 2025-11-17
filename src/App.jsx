@@ -11,6 +11,7 @@ import Requests from "./components/connections/Requests";
 import Home from "./components/home/home";
 import appStore from "./utils/appStore";
 import AuthProvider from "./AuthProvider";
+import Chat from "./components/chat/Chat";
 import { PublicRoute, PrivateRoute } from "./routes/Routes";
 
 export default function App() {
@@ -58,6 +59,14 @@ export default function App() {
                   element={
                     <PrivateRoute>
                       <ProfilePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/user/chat/:targetUserId"
+                  element={
+                    <PrivateRoute>
+                      <Chat />
                     </PrivateRoute>
                   }
                 />
