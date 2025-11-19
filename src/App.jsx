@@ -8,7 +8,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import Feed from "./components/feed/Feed";
 import Connections from "./components/connections/Connections";
 import Requests from "./components/connections/Requests";
-import Home from "./components/home/home";
+import HomePage from "./components/homepage/HomePage";
 import appStore from "./utils/appStore";
 import AuthProvider from "./AuthProvider";
 import Chat from "./components/chat/Chat";
@@ -25,7 +25,7 @@ export default function App() {
                 path="/"
                 element={
                   <PublicRoute>
-                    <Home />
+                    <HomePage />
                   </PublicRoute>
                 }
               />

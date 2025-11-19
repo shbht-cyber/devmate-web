@@ -1,4 +1,4 @@
-export default function Home() {
+export default function HomePage() {
   return (
     <div
       className="h-screen w-full bg-cover bg-center bg-no-repeat flex items-center"
