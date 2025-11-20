@@ -15,22 +15,29 @@ const Signup = () => {
     password: "",
     age: "",
     gender: "",
-    photoUrl: "",
   });
   const [error, setError] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
-      const { data } = await axios.post(
-        `${API_BASE_URL}/signup`,
-        { ...form },
-        {
-          withCredentials: true,
-        }
-      );
+      const formData = new FormData();
+
+      Object.keys(form).forEach((key) => {
+        formData.append(key, form[key]);
+      });
+
+      formData.append("photo", photo);
+
+      const { data } = await axios.post(`${API_BASE_URL}/signup`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
 
       dispatch(addUser(data.data));
       return navigate("/user/profile");
@@ -48,9 +55,9 @@ const Signup = () => {
           <SignupForm
             form={form}
             setForm={setForm}
+            setPhoto={setPhoto}
             handleSignup={handleSignup}
             error={error}
-            setError={setError}
           />
 
           {/* helper section */}

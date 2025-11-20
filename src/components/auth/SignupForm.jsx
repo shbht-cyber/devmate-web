@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const SignupForm = ({ form, setForm, handleSignup, error }) => {
+const SignupForm = ({ form, setForm, setPhoto, handleSignup, error }) => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -63,7 +63,16 @@ const SignupForm = ({ form, setForm, handleSignup, error }) => {
           </div>
         </div>
 
-        {renderInput("Photourl", "text", "photoUrl", "Enter your photo url")}
+        <div>
+          <label className="label">Profile Photo</label>
+          <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            className="file-input file-input-bordered w-full"
+            onChange={(e) => setPhoto(e.target.files[0])}
+          />
+        </div>
 
         {error && <p className="text-red-500">{error}</p>}
 
