@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../../utils/socket";
 import { useSelector } from "react-redux";
@@ -9,14 +9,20 @@ const Chat = () => {
   const { targetUserId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [receiver, setReceiver] = useState(null);
+  const messagesEndRef = useRef(null);
 
   const user = useSelector((store) => store.user);
   const userId = user?._id;
+
+  console.log("receiver is", receiver);
 
   async function fetchChat() {
     const chat = await axios.get(API_BASE_URL + "/user/chat/" + targetUserId, {
       withCredentials: true,
     });
+
+    setReceiver(chat?.data?.receiver);
 
     const chatMessages = chat?.data?.messages.map((msg) => {
       const { senderId, text } = msg;
@@ -37,9 +43,7 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
+    if (!userId) return;
 
     const socket = createSocketConnection();
     socket.emit("joinChat", { userId, targetUserId });
@@ -47,19 +51,22 @@ const Chat = () => {
     socket.on(
       "messageReceived",
       ({ firstName, lastName, photoUrl, text, userId }) => {
-        setMessages([
-          ...messages,
+        setMessages((prev) => [
+          ...prev,
           { firstName, lastName, photoUrl, text, _id: userId },
         ]);
       }
     );
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [messages, targetUserId, userId]);
+    return () => socket.disconnect();
+  }, [targetUserId, userId]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   function handleSendMessage() {
+    if (!newMessage.trim()) return;
     const socket = createSocketConnection();
     socket.emit("sendMessage", {
       firstName: user.firstName,
@@ -73,48 +80,56 @@ const Chat = () => {
   }
 
   return (
-    <div className="w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
-      <h1 className="p-5 border-b border-gray-600">Chat</h1>
-      <div className="flex-1 overflow-y-auto p-5">
-        {messages.map((msg, ind) => {
-          return (
-            <>
+    <div className=" w-full max-w-3xl mx-auto h-[85vh] flex flex-col bg-base-200 rounded-lg shadow-md border border-gray-300">
+      {/* HEADER */}
+      {receiver && (
+        <div className="p-4 bg-base-300 flex items-center gap-3 border-b border-gray-400 sticky top-0">
+          <div className="avatar">
+            <div className="w-10 rounded-full">
+              <img src={receiver?.photoUrl} />
+            </div>
+          </div>
+          <h1 className="text-lg font-semibold capitalize">
+            {receiver?.firstName + " " + receiver?.lastName}
+          </h1>
+        </div>
+      )}
+
+      {/* MESSAGES */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-chat-pattern">
+        {messages.map((msg, ind) => (
+          <div
+            key={ind}
+            className={`flex ${
+              msg._id === userId ? "justify-end" : "justify-start"
+            }`}
+          >
+            <div>
               <div
-                key={ind}
-                className={`chat ${
-                  msg._id === userId ? "chat-end" : "chat-start"
-                } `}
+                className={`chat-bubble px-4 py-2 rounded-xl shadow-md max-w-xs wrap-break-word ${
+                  msg._id === userId
+                    ? "bg-green-800 text-white"
+                    : "bg-white text-black"
+                }`}
               >
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img
-                      alt="Tailwind CSS chat bubble component"
-                      src={msg.photoUrl}
-                    />
-                  </div>
-                </div>
-                <div className="chat-header">
-                  {msg.firstName + " " + msg.lastName}
-                  <time className="text-xs opacity-50">12:45</time>
-                </div>
-                <div className="chat-bubble">{msg.text}</div>
-                <div className="chat-footer opacity-50">Delivered</div>
+                {msg.text}
               </div>
-            </>
-          );
-        })}
+            </div>
+          </div>
+        ))}
+        <div ref={messagesEndRef}></div>
       </div>
 
-      <div className="p-5 border-t border-gray-600 flex items-center gap-2">
+      {/* INPUT BAR */}
+      <div className="p-3 bg-base-300 border-t border-gray-400 flex items-center gap-3">
         <input
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 border border-gray-500 text-black rounded p-2"
+          onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+          className="flex-1 input input-bordered"
+          placeholder="Type a message"
         />
-        <button
-          onClick={() => handleSendMessage()}
-          className="btn btn-secondary"
-        >
+        <button onClick={handleSendMessage} className="btn btn-success">
           Send
         </button>
       </div>
