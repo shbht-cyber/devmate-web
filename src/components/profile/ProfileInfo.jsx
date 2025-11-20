@@ -9,6 +9,8 @@ import Toaster from "../common/Toaster";
 const ProfileInfo = ({ form, setForm }) => {
   const dispatch = useDispatch();
 
+  const [photoFile, setPhotoFile] = useState(null);
+
   const [toast, setToast] = useState({
     show: false,
     type: "",
@@ -20,13 +22,25 @@ const ProfileInfo = ({ form, setForm }) => {
   };
 
   const handleUpdateDetails = async () => {
-    // eslint-disable-next-line no-unused-vars
-    const { emailId, ...payloadData } = form;
     try {
+      const formData = new FormData();
+
+      formData.append("firstName", form.firstName);
+      formData.append("lastName", form.lastName);
+      formData.append("age", form.age);
+      formData.append("gender", form.gender);
+      formData.append("about", form.about);
+      formData.append("skills", JSON.stringify(form.skills));
+
+      if (photoFile) {
+        formData.append("photo", photoFile);
+      }
+
       const { data } = await axios.patch(
         API_BASE_URL + "/profile/edit",
-        payloadData,
+        formData,
         {
+          headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
         }
       );
@@ -69,7 +83,16 @@ const ProfileInfo = ({ form, setForm }) => {
         {renderInput("text", "firstName", "First Name")}
         {renderInput("text", "lastName", "Last Name")}
         {renderInput("number", "age", "Age")}
-        {renderInput("text", "photoUrl", "Photo Url")}
+
+        <div>
+          <h3 className="text-md font-semibold mb-2">Profile Image</h3>
+          <input
+            type="file"
+            accept="image/*"
+            className="file-input file-input-bordered w-full"
+            onChange={(e) => setPhotoFile(e.target.files[0])}
+          />
+        </div>
 
         <div>
           <h3 className="text-xl font-semibold mb-2">Gender</h3>

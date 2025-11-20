@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
@@ -15,6 +15,10 @@ const ProfilePageContainer = ({ profileData }) => {
     skills: profileData.skills || [],
     photoUrl: profileData.photoUrl,
   });
+
+  useEffect(() => {
+    setForm(profileData);
+  }, [profileData]);
 
   return (
     <div className="min-h-screen bg-base-300 p-6 pb-5">
